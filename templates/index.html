@@ -1012,18 +1012,8 @@
             const total = uploadedImages.length;
 
             try {
-                for (let i = 0; i < total; i++) {
-                    const img = uploadedImages[i];
-                    const progress = Math.round(((i + 1) / total) * 100);
-                    
-                    document.getElementById('progressBar').style.width = progress + '%';
-                    const progressMsg = t('processingFile')
-                        .replace('{n}', i + 1)
-                        .replace('{total}', total)
-                        .replace('{name}', img.original_name);
-                    document.getElementById('progressText').textContent = progressMsg;
-
-                    const response = await fetch('/api/convert', {
+                const promises = uploadedImages.map((img, i) => {
+                    return fetch('/api/convert', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
@@ -1037,13 +1027,27 @@
                             file_index: i,
                             total_files: total
                         })
+                    }).then(res => res.json()).then(data => {
+                        const progress = Math.round(((i + 1) / total) * 100);
+                        document.getElementById('progressBar').style.width = progress + '%';
+                        const progressMsg = t('processingFile')
+                            .replace('{n}', i + 1)
+                            .replace('{total}', total)
+                            .replace('{name}', img.original_name);
+                        document.getElementById('progressText').textContent = progressMsg;
+                        return { data, index: i };
                     });
-                    const data = await response.json();
+                });
 
-                    if (data.success && data.files.length > 0) {
-                        processedFiles.push(data.files[0]);
+                const results = await Promise.all(promises);
+                
+                results.sort((a, b) => a.index - b.index);
+                
+                results.forEach(result => {
+                    if (result.data.success && result.data.files.length > 0) {
+                        processedFiles.push(result.data.files[0]);
                     }
-                }
+                });
 
                 const formatName = selectedFormat === 'KEEP' ? (currentLang === 'zh' ? '原格式' : 'Original') : selectedFormat;
                 const avgRatio = processedFiles.reduce((sum, f) => sum + (f.compression_ratio || 0), 0) / processedFiles.length;
