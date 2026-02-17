@@ -1,0 +1,11 @@
+services:
+  image-tool:
+    build: .
+    container_name: image-tool
+    ports:
+      - "30050:30050"
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
