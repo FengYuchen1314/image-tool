@@ -12,7 +12,18 @@
 
 ---
 
-## 电脑部署
+## Python 直接运行
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+访问：http://localhost:30050
+
+---
+
+## 服务器 Docker 部署
 
 ```bash
 git clone https://github.com/FengYuchen1314/image-tool.git
