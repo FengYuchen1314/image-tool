@@ -10,10 +10,25 @@
 - 单文件下载或批量打包下载
 - 中英文双语支持
 
-## 部署
+---
 
-1. 下载项目或克隆：`git clone https://github.com/FengYuchen1314/image-tool.git`
-2. 进入目录：`cd image-tool`
-3. 启动：`docker-compose up -d`
+## 电脑部署
 
-访问：http://localhost:30050（本地）或 http://<NAS IP>:30050（NAS）
+```bash
+git clone https://github.com/FengYuchen1314/image-tool.git
+cd image-tool
+docker-compose up -d
+```
+
+访问：http://localhost:30050
+
+---
+
+## NAS 部署
+
+1. 下载项目（ZIP 或 git clone）
+2. 上传到 NAS
+3. 在 NAS 文件管理器中进入项目目录
+4. 使用 NAS 的 Docker/docker-compose 功能运行 docker-compose.yml
+
+访问：http://<NAS IP>:30050
