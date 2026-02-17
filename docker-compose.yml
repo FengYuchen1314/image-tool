@@ -1,6 +1,6 @@
 services:
   image-tool:
-    image: fengyuchen1314/image-tool:latest
+    build: .
     container_name: image-tool
     ports:
       - "30050:30050"
