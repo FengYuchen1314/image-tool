@@ -10,20 +10,10 @@
 - 单文件下载或批量打包下载
 - 中英文双语支持
 
-## 本地部署
+## 部署
 
-```bash
-git clone https://github.com/FengYuchen1314/image-tool.git
-cd image-tool
-docker-compose up -d
-```
+1. 下载项目或克隆：`git clone https://github.com/FengYuchen1314/image-tool.git`
+2. 进入目录：`cd image-tool`
+3. 启动：`docker-compose up -d`
 
-访问：http://localhost:30050
-
-## NAS 部署
-
-1. 克隆仓库或上传文件到 NAS
-2. 进入目录
-3. 运行：`docker-compose up -d`
-
-访问：http://<NAS IP>:30050
+访问：http://localhost:30050（本地）或 http://<NAS IP>:30050（NAS）
